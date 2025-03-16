@@ -1,0 +1,203 @@
+#!/bin/bash
+
+#functie pentru calculul ariei unui patrat
+
+arie_patrat()
+{
+
+        read -p "Introduceti dimensiunea laturii patratului(DOAR VALORI INTREGI!): " latura
+
+        until [ $latura -gt 0 ]
+        do
+                {
+                clear
+                read -p "Reintroduceti dimensiunea laturii: " latura
+                }
+        done
+
+        arie=$(( $latura * $latura ))
+        echo "Aria patratului este $arie"
+}
+
+#functie pentru calculul volumului unui cub
+
+volum_cub()
+{
+        read -p "Introduceti dimensiunea laturii cubului(DOAR VALORI INTREGI!): " latura
+
+        until [ $latura -gt 0 ]
+        do
+                {
+                clear
+                read -p "Reintroduceti dimensiunea laturii: " latura
+                }
+        done
+
+        volum=$(( $latura * $latura * $latura ))
+        echo "Volumul cubului este $volum"
+}
+
+#functie pentru aria unui cerc
+
+arie_cerc()
+{
+        read -p "Introduceti raza cercului(DOAR VALORI INTREGI!): " raza
+
+        until [ $raza -gt 0 ]
+        do
+                {
+                clear
+                read -p "Reintroduceti raza: " raza
+                }
+        done
+
+        arie=$(awk -v r="$raza" 'BEGIN { pi = 3.14; print pi * r * r }')
+        echo "Aria cercului este: $arie"
+}
+
+#functie pentru volumul unei sfere
+
+volum_sfera()
+{
+         read -p "Introduceti raza sferei(DOAR VALORI INTREGI!): " raza
+
+        until [ $raza -gt 0 ]
+        do
+                {
+                clear
+                read -p "Reintroduceti raza: " raza
+                }
+        done
+
+        volum=$(awk -v r="$raza" 'BEGIN { pi = 3.14; print (( 4 / 3 )) * pi * r * r * r }')
+        echo "Volumul sferei este: $volum"
+}
+
+#functie pentru calculul ariei dreptunghiului
+
+arie_dreptunghi()
+{
+        read -p "Introduceti lungimea dreptunghiului (DOAR VALORI INTREGI!): " lungime
+
+        until [ $lungime -gt 0 ]
+        do
+                {
+                clear
+                read -p "Reintroduceti lungimea(DOAR VALORI INTREGI!): " lungime
+                }
+        done
+
+        read -p "Introduceti latimea dreptunghiului (DOAR VALOR INTREGI!): " latime
+        until [ $latime -gt 0 ]
+        do
+                {
+                clear
+                read -p "Introduceti latimea(DOAR VALORI INTREGI!): " latime
+                }
+        done
+
+        arie=$(( $lungime * $latime ))
+        echo "Aria dreptunghiului este: $arie"
+}
+
+#functie pentru calculul volumului unui paralelipiped dreptunghic
+
+volum_paralelipiped()
+{
+        read -p "Introduceti lungimea paralelipipedului(DOAR VALORI INTREGI!): " lungime
+
+        until [ $lungime -gt 0 ]
+        do
+                {
+                clear
+                read -p "Reintroduceti lungimea(DOAR VALORI INTREGI!): " lungime
+                }
+        done
+
+        read -p "Introduceti latimea paralelipipedului(DOAR VALOR INTREGI!): " latime
+
+        until [ $latime -gt 0 ]
+        do
+                {
+                clear
+                read -p "Reintroduceti latimea(DOAR VALORI INTREGI!): " latime
+                }
+        done
+
+        read -p "Introduceti inaltimea paralelipipedului(DOAR VALORI INTREGI!): " inaltime
+
+        until [ $inaltime -gt 0 ]
+        do
+	  	{
+                clear
+                read -p "Reintroduceti inaltimea(DOAR VALORI INTREGI!): " inaltime
+                }
+        done
+
+        volum=$(( 2 * (( $lungime + $latime + $inaltime )) ))
+        echo "Volumul paralelipipedului este: $volum"
+}
+
+#functia pentru meniul cu arii
+
+meniu_calcul_arii()
+{
+        while true; do
+		echo -e "\nCe arie vreti sa calculati?"
+                echo -e "\n1.Aria patratului"
+                echo "2.Aria cercului"
+                echo "3.Aria dreptunghiului"
+                echo "4.Iesire"
+        read -p "Alegeti o optiune: " option
+
+        case $option in
+                1)arie_patrat ;;
+                2)arie_cerc ;;
+                3)arie_dreptunghi ;;
+                4)meniu_principal ;;
+                *)echo "Optiune invalida" ;;
+        esac
+        done
+}
+
+#functie pentru meniul cu volume
+meniu_calcul_volum()
+{
+        while true;do
+		echo -e "\nCe volum vreti sa calculati?"
+                echo -e "\n1.Volumul cubului"
+                echo "2.Volumul sferei"
+                echo "3.Volumul paralelipipedului dreptunghic"
+                echo "4.Iesire"
+        read -p "Alegeti o optiune: " option
+
+        case $option in
+                1)volum_cub ;;
+                2)volum_sfera ;;
+                3)volum_paralelipiped ;;
+                4)meniu_principal ;;
+                *)echo "Optiune invalida" ;;
+        esac
+        done
+}
+
+#functie pentru meniul principal
+meniu_principal()
+{
+        while true; do
+		echo -e "\nCe vreti sa calculati?"
+                echo -e "\n1.Arii"
+                echo "2.Volume"
+                echo "3.Iesire"
+        read -p "Alegeti o optiune: " option
+
+        case $option in
+                1)meniu_calcul_arii ;;
+                2)meniu_calcul_volum ;;
+                3)echo "La revedere!" ; exit ;;
+                *)echo "Optiune invalida" ; exit ;;
+        esac
+        done
+}
+
+meniu_principal
